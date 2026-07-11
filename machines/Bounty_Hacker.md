@@ -1,4 +1,4 @@
-#Машина Bounty Hacker Tryhackme
+# Машина Bounty Hacker Tryhackme
 
 Сканируем машину на наличие открытых портов с помощью утилиты nmap
 ```
