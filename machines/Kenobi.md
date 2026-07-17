@@ -31,7 +31,7 @@
    ```bash
    cat /home/kenobi/user.txt
    ```
----## 3. Повышение привилегий (Privilege Escalation до Root)
+## 3. Повышение привилегий (Privilege Escalation до Root)
 Для поиска векторов локального повышения привилегий был запущен сбор файлов с установленным SUID-битом (запуск от имени владельца-суперпользователя):```bash
 find / -perm -u=s -type f 2>/dev/null
 ```
