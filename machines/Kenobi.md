@@ -7,6 +7,7 @@
 | | |
 |---|---|
 | **Платформа** | TryHackMe |
+| **Ссылка** | https://tryhackme.com/room/kenobi |
 | **ОС** | Linux |
 | **Теги** | `smb`, `nfs`, `ftp`, `path-injection`, `suid` |
 
