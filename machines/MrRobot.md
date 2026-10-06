@@ -3,11 +3,12 @@
 # Mr Robot
 
 **Сложность:** Medium
+<img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/de6e77f9-0de0-4adf-a407-9cd45f348b75" />
 
 |  |  |
 | --- | --- |
 | **Платформа** | TryHackMe |
-| **Ссылка** | [https://tryhackme.com/r/room/mrrobot](https://www.google.com/search?q=https://tryhackme.com/r/room/mrrobot) |
+| **Ссылка** | https://tryhackme.com/room/mrrobot |
 | **ОС** | Linux |
 | **Теги** | `wordpress`, `dictionary-attack`, `suid`, `nmap` |
 
