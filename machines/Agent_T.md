@@ -3,7 +3,7 @@
 
 **Сложность:** Easy
 
-<img width="512" height="512" alt="image" src="https://github.com/user-attachments/assets/71702c69-3da0-48f4-8f6f-3c0834f2c863" />
+<img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/71702c69-3da0-48f4-8f6f-3c0834f2c863" />
 
 
 | | |
