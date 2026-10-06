@@ -35,7 +35,7 @@
 
 - **Разведка и фаззинг:** `Nmap`, `Gobuster`, `Ffuf`
 - **Анализ веб-приложений и аудит:** `Nikto`, `Burp Suite`, `Hydra`
-- **Эксплуатация и работа с шеллами:** `Netcat (nc)`, `Python (PTY)`
+- **Эксплуатация и работа с шеллами:** `Netcat (nc)`, `Python (PTY)`, `PHP`
 - **Форензика и сетевой анализ:** `Wireshark`
 - **Повышение привилегий:** Поиск SUID-бинарников, анализ `sudo -l`, техники с [GTFOBins](https://gtfobins.github.io/), возможность изменения $PATH, `LinPEAS`
 
