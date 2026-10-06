@@ -44,7 +44,7 @@
 
 | Раздел | Описание | Платформа | Переход |
 | :--- | :--- | :---: | :---: |
-| **Solved Machines** | Отчёты по прохождению уязвимых машин (Recon, Foothold, PrivEsc) | TryHackMe | [Открыть](./solved_machines) |
+| **Solved Machines** | Отчёты по прохождению уязвимых машин (Recon, Foothold, PrivEsc) | TryHackMe | [Открыть](./machines) |
 | **Solved Problems** | Решения тасков по категориям (Web, Forensic, App Script и др.) | Root-Me | [Открыть](./solved_problems) |
 
 ---
