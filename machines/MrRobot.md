@@ -3,7 +3,10 @@
 # Mr Robot
 
 **Сложность:** Medium
+
 <img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/de6e77f9-0de0-4adf-a407-9cd45f348b75" />
+
+
 
 |  |  |
 | --- | --- |
