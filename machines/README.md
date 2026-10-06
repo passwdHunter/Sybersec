@@ -1,14 +1,14 @@
 <div align="center">
 
-<table>
+<table width="500">
 <tr>
-<td align="center" style="padding: 400px; border-radius: 12px; background-color: #0d1117; border: 1px solid #30363d;">
+<td align="center" style="padding: 20px; border-radius: 12px; background-color: #0d1117; border: 1px solid #30363d;">
 
 <a href="https://tryhackme.com/p/taxEvasion">
   <img width="100" height="100" alt="Avatar" src="https://github.com/user-attachments/assets/26415d3b-c658-4430-9586-4c9c3a2ee09e" style="border-radius: 50%; border: 3px solid #FF214B; padding: 3px;" />
 </a>
 
-###  taxEvasion
+### taxEvasion
 
 **Cybersecurity Enthusiast & CTF Player**
 
@@ -24,7 +24,7 @@
 
 <div align="center">
 
-#  Machines Writeups
+# Machines Writeups
 
   **Коллекция отчётов и разборов прохождения CTF-машин**
 
@@ -35,13 +35,13 @@
 
 ---
 
-##  О репозитории
+## О репозитории
 
 В этом репозитории собраны подробные отчёты (writeups) к лабораторным машинам с платформы **TryHackMe**. Все материалы структурированы и описывают полный цикл исследования: от разведки и анализа уязвимостей до получения доступа и повышения привилегий.
 
 ---
 
-##  Основной инструментарий
+## Основной инструментарий
 
 - **Разведка и фаззинг:** `Nmap`, `Gobuster`, `Ffuf`
 - **Анализ веб-приложений и аудит:** `Nikto`, `Burp Suite`, `Hydra`
