@@ -164,5 +164,3 @@ bash-4.4# cat root.txt
 
 `nmap`, `smbclient`, `ftp`, `nc`, Python
 ```
-
-
