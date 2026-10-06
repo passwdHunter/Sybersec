@@ -9,9 +9,8 @@
 | | |
 |---|---|
 | **Платформа** | TryHackMe |
-| **Ссылка** | https://tryhackme.com/room/... |
+| **Ссылка** | https://tryhackme.com/room/agentt |
 | **ОС** | Linux |
-| **Дата прохождения** | 2026-07-13 |
 | **Теги** | `web`, `rce`, `php` |
 
 ## Кратко
