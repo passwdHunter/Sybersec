@@ -1,13 +1,14 @@
-Вот твой райтап, полностью адаптированный под используемый структурированный шаблон:
-
 # TryHackMe: Hacker Holidays — Packed Light
 
-**Сложность:** Easy / Medium
+**Сложность:** Easy 
+
+<img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/7efd4b42-64a5-46d9-b031-b8a369849231" />
+
 
 |  |  |
 | --- | --- |
 | **Платформа** | TryHackMe |
-| **Ссылка** | https://www.google.com/search?q=https://tryhackme.com/r/room/hackerholidays |
+| **Ссылка** | [https://www.google.com/search?q=https://tryhackme.com/r/room/hackerholidays](https://tryhackme.com/room/hh-packedlight-02e5330c) |
 | **ОС** | Linux |
 | **Теги** | `pcap`, `forensics`, `wireshark`, `tshark`, `keylogger`, `xor`, `c2` |
 
