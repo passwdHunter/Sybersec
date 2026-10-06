@@ -8,6 +8,7 @@
 | | |
 |---|---|
 | **Платформа** | TryHackMe |
+| **Ссылка** | https://tryhackme.com/room/ice |
 | **ОС** | Windows |
 | **Теги** | `metasploit`, `icecast`, `mimikatz`, `privesc` |
 
