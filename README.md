@@ -5,5 +5,5 @@ This repository contains my solutions to cybersecurity challenges and CTFs.
 ## 🔗 My Profiles
 
 - **RootMe:** [CloudflareBypass](https://www.root-me.org/CloudflareBypass)
-- **TryHackMe:** [d.s.yankovskiy](https://tryhackme.com/p/d.s.yankovskiy)
+- **TryHackMe:** [d.s.yankovskiy](https://tryhackme.com/p/taxEvasion)
 - **GitHub:** [passwdHunter](https://github.com/passwdHunter)
