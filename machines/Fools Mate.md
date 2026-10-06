@@ -8,6 +8,7 @@
 | | |
 |---|---|
 | **Платформа** | TryHackMe |
+| **Ссылка** | https://tryhackme.com/room/foolsmate |
 | **Теги** | `web`, `burpsuite`, `logic-flaw` |
 
 ## Кратко
