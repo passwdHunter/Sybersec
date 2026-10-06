@@ -5,7 +5,7 @@
 <img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/61b8dcca-607b-44da-9dd3-31d2d7dc41bd" />
 
 
-| | |
+
 |---|---|
 | **Платформа** | TryHackMe |
 | **Ссылка** | https://tryhackme.com/room/foolsmate |
