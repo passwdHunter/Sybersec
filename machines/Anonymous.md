@@ -2,7 +2,8 @@
 
 **Сложность:** Easy
 
-<img width="100" height="100" alt="image" src="ССЫЛКА_НА_ИКОНКУ" />
+<img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/74644a95-ff89-45fe-b81a-408d26e2ee0d" />
+
 
 | | |
 |---|---|
