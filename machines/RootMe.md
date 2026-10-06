@@ -1,10 +1,8 @@
-Вот твой отчёт по прохождению машины **RootMe**, полностью оформленный и адаптированный под твой единый шаблон:
-
 # RootMe
 
 **Сложность:** Easy
 
-<img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/2f0a231d-faf2-47da-83ad-9ffd65841896" />
+<img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/2f0a231d-faf2-47da-83ad-9ffd65841896" />
 
 
 |  |  |
