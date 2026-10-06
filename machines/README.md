@@ -1,8 +1,8 @@
 <div align="center">
 
-<img width="100" height="100" alt="Avatar" src="ССЫЛКА_НА_АВАТАРКУ" style="border-radius: 50%;" />
+<img width="100" height="100" alt="Avatar" src="https://github.com/user-attachments/assets/26415d3b-c658-4430-9586-4c9c3a2ee09e" style="border-radius: 50%;" />
 
-### 👋 taxEvasion
+###  taxEvasion
 
 **Cybersecurity Enthusiast & CTF Player**
 
