@@ -25,15 +25,15 @@ nmap -sV 10.80.137.254
 ```
 
 ```
-Отчет о сканировании Nmap для 10.80.137.254
-Хост активен (задержка 0.048s).
-Не показано: 996 закрытых tcp-портов (reset)
-ПОРТ    СОСТОЯНИЕ СЕРВИС      ВЕРСИЯ
-21/tcp  открыт    ftp         vsftpd 2.0.8 или новее
-22/tcp  открыт    ssh         OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
-139/tcp открыт    netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
-445/tcp открыт    netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
-Информация о хосте: ANONYMOUS; ОС: Linux; CPE: cpe:/o:linux:linux_kernel
+Nmap scan report for 10.80.137.254
+Host is up (0.048s latency).
+Not shown: 996 closed tcp ports (reset)
+PORT    STATE SERVICE     VERSION
+21/tcp  open  ftp         vsftpd 2.0.8 or later
+22/tcp  open  ssh         OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+139/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+Service Info: Host: ANONYMOUS; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
 Открытые порты:
