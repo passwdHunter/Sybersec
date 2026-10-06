@@ -163,4 +163,3 @@ bash-4.4# cat root.txt
 ## Использованные инструменты
 
 `nmap`, `smbclient`, `ftp`, `nc`, Python
-```
