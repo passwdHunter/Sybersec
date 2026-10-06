@@ -8,7 +8,7 @@
 |  |  |
 | --- | --- |
 | **Платформа** | TryHackMe |
-| **Ссылка** | [https://www.google.com/search?q=https://tryhackme.com/r/room/hackerholidays](https://tryhackme.com/room/hh-packedlight-02e5330c) |
+| **Ссылка** | [https://tryhackme.com/room/hh-packedlight ](https://tryhackme.com/room/hh-packedlight-02e5330c)|
 | **ОС** | Linux |
 | **Теги** | `pcap`, `forensics`, `wireshark`, `tshark`, `keylogger`, `xor`, `c2` |
 
