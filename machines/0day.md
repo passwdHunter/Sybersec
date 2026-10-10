@@ -10,11 +10,11 @@
 | **Платформа** | TryHackMe |
 | **Ссылка** | https://tryhackme.com/room/0day |
 | **ОС** | Linux |
-| **Теги** | `web`, `linux`, `shellshock` |
+| **Теги** | `web`, `linux`, `shellshock`, `privesc`, `exploitation` |
 
 ## Кратко
 
-Машина на Ubuntu, c
+Машина c открытыми 22 и 80 портом, на сервере в папке /cgi-bin лежит файл test.cgi - это shellshock, через него попадаем на машину под пользователем www-data. Узнаем версию Ubuntu 14.04.1 LTS, под которую выпущен эксплойт `'overlayfs' Local Privilege Escalation`
 
 ## 1. Разведка
 
