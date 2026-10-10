@@ -1,15 +1,16 @@
 # 0day
 
-**Сложность:** Easy / Medium / Hard
+**Сложность:** Medium
 
-<img width="100" height="100" alt="image" src="ССЫЛКА_НА_ИКОНКУ" />
+<img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/6846478e-305b-4288-be7a-61f717ef11a8" />
+
 
 | | |
 |---|---|
 | **Платформа** | TryHackMe |
-| **Ссылка** | https://tryhackme.com/room/... |
-| **ОС** | Linux / Windows |
-| **Теги** | `tag1`, `tag2`, `tag3` |
+| **Ссылка** | https://tryhackme.com/room/0day |
+| **ОС** | Linux |
+| **Теги** | `web`, `linux`, `shellshock` |
 
 ## Кратко
 
